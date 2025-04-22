@@ -54,5 +54,36 @@ namespace MyLibraryDotNet.Controllers
 
             return Ok(books);
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(CreateBookResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Update([FromBody] Book request, int id)
+        {
+            var updatedBook = new CreateBookResponse
+            {
+                Title = request.Title,
+                Author = request.Author,
+                Description = request.Description,
+                Genre = request.Genre,
+                Id = id
+            };
+
+            return Ok(updatedBook);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(CreateBookResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Delete(int id)
+        {
+            var deletedBook = new CreateBookResponse
+            {
+                Id = id
+            };
+            return Ok(deletedBook);
+        }
     }
 }
