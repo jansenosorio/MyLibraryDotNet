@@ -1,19 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyLibraryDotNet.Communication.Responses;
 
 namespace MyLibraryDotNet.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class LibraryController : ControllerBase
+    public class LibraryController : MyLibraryBaseController
     {
+
         [HttpPost]
-        [ProducesResponseType(typeof(Book),StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(CreateBookResponse),StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create([FromBody] Book request)
         {
-            var bookName = request;
+            var newBook = new CreateBookResponse
+            {
+                Title = request.Title,
+                Author = request.Author,
+                Description = request.Description,
+                Genre = request.Genre,
+                Id = 999,
+                Price = 99,
+                QuantityAvailable = 1,
+            };
             
-            return Ok("Book created!");
+            return Created("", newBook);
         }
 
     }
